@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Microbiome analysis</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".">
+          <img src="salientbio.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#package-installation">Package installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-qc">Step QC:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#check-the-quality-of-the-fastq-files-using-fastqc-in-bash">Check the quality of the FASTQ files using FASTQC in BASH</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#snakemake-pipeline">Snakemake pipeline</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-1">Step 1:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#addition-of-the-samples-list-and-target-file">Addition of the samples list and target file.</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-2">Step 2:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cutadapt-to-remove-last-remaining-adapters-consider-using-bbduk-here">Cutadapt to remove last remaining adapters (consider using BBduk here)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-3">Step 3:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#filter-phix-control-from-data">Filter PhiX control from data</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-4">Step 4:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#merge-paired-reads">Merge paired reads</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-5">Step 5:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#map-reads-to-the-metaphlan-databaase-for-taxonomic-analysis-use-two-cores">Map reads to the metaphlan databaase for taxonomic analysis - use two cores</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-6">Step 6:</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#merge-abundances-into-a-single-tab-seperated-txt-file">Merge abundances into a single tab seperated txt file</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#full-snakemake-pipline">Full snakemake pipline</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-7">Step 7</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#extract-species-level-abundances-from-merged-txt-file">Extract species level abundances from merged txt file</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extract-species-level-abundances-including-unknown-portion">Extract species level abundances including UNKNOWN portion</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extract-genus-level-abundances-including-unknown-portion">Extract genus level abundances including UNKNOWN portion</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="Analysis/">Analysis</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="multiqc_report.html">Multiqc</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Microbiome analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="shotgun-metagenomic-analysis-for-salientbio-technical-challenge">Shotgun metagenomic analysis for salient.bio technical challenge.</h1>
+<p>For files and full documentation please visit <a href="https://github.com/swelbo/sb_int">github.com/swelbo</a>.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><code>snakemake</code> - Pipeline management tool.</li>
+<li><code>fastqc</code> - Check read quality scores.</li>
+<li><code>multiqc</code> - Snazzy report of read qualities.</li>
+<li><code>cutadapt</code> - Remove pesky remaining illumina adapters.</li>
+<li><code>bbmap split</code> - Clean reads of Illumina Phix control (and host check with cpu).</li>
+<li><code>bbmap merge</code> - Merge paired end reads whilist retaining reads that could not be paird.</li>
+<li><code>metaphlan3</code> - Taxonomic profiling of samples.</li>
+<li><code>humann</code> - Functional characterisation of the metagenome.</li>
+</ul>
+<h2 id="package-installation">Package installation</h2>
+<pre><code>conda create -n sbint python=3.7  # Create conda environment
+conda install metaphlan humann cutadapt multiqc fastqc  # Install prequisite packages
+</code></pre>
+<h2 id="step-qc">Step QC:</h2>
+<h3 id="check-the-quality-of-the-fastq-files-using-fastqc-in-bash">Check the quality of the FASTQ files using FASTQC in BASH</h3>
+<pre><code>mkdir fastqc
+fastqc reads/* -o fastqc/  # run fastqc over all read samples 
+multiqc fastqc/ -o multiqc  # generate snazzy report
+cp multiqc/multiqc_report.html
+</code></pre>
+<h2 id="snakemake-pipeline">Snakemake pipeline</h2>
+<h2 id="step-1">Step 1:</h2>
+<h3 id="addition-of-the-samples-list-and-target-file">Addition of the samples list and target file.</h3>
+<pre><code>SAMPLES = [&quot;Sample_A&quot;, &quot;Sample_B&quot;, &quot;Sample_C&quot;, &quot;Sample_D&quot;,
+           &quot;Sample_E&quot;, &quot;Sample_F&quot;, &quot;Sample_G&quot;, &quot;Sample_H&quot;, 
+           &quot;Sample_I&quot;, &quot;Sample_J&quot;, &quot;Sample_K&quot;, &quot;Sample_L&quot;]
+
+# Target file
+rule all:
+    input:
+        &quot;/Users/tsewell/sb_int/metaphlan/merged/merged_abundance_table.txt&quot;
+</code></pre>
+<h2 id="step-2">Step 2:</h2>
+<h3 id="cutadapt-to-remove-last-remaining-adapters-consider-using-bbduk-here">Cutadapt to remove last remaining adapters (consider using BBduk here)</h3>
+<pre><code>rule trim:
+    input:
+        r1 = &quot;/Users/tsewell/sb_int/reads/{sample}_L001_R1_001_subsample.fastq.gz&quot;,
+        r2 = &quot;/Users/tsewell/sb_int/reads/{sample}_L001_R2_001_subsample.fastq.gz&quot;
+    output:
+        trim1 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R1.fastq&quot;,
+        trim2 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R2.fastq&quot;
+    shell:
+        &quot;(cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o {output.trim1} -p {output.trim2} {input.r1} {input.r2})&quot;
+</code></pre>
+<h2 id="step-3">Step 3:</h2>
+<h3 id="filter-phix-control-from-data">Filter PhiX control from data</h3>
+<pre><code>rule hostfilter:
+    input:
+        fq1 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R1.fastq&quot;,
+        fq2 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R2.fastq&quot;,
+        contam = &quot;/Users/tsewell/sb_int/reference/GCF_000819615.1_ViralProj14015_genomic.fna.gz&quot;
+       output:
+        clean1 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_1.fq&quot;,
+        clean2 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_2.fq&quot;
+       shell:
+        &quot;/Users/tsewell/bbmap/bbsplit.sh -Xmx16g in1={input.fq1} in2={input.fq2} ref={input.contam} outu1={output.clean1} outu2={output.clean2} int=t&quot;
+</code></pre>
+<h2 id="step-4">Step 4:</h2>
+<h3 id="merge-paired-reads">Merge paired reads</h3>
+<pre><code>rule merge:
+    input:
+        cleanfq1 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_1.fq&quot;,
+        cleanfq2 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_2.fq&quot;
+    output: 
+        merged = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq&quot;,
+        hist = &quot;/Users/tsewell/sb_int/merged/{sample}.ihist.txt&quot;,
+        unmerged = &quot;/Users/tsewell/sb_int/merged/{sample}.unmerged.fq&quot;
+    shell:
+        &quot;/Users/tsewell/bbmap/bbmerge-auto.sh in1={input.cleanfq1} in2={input.cleanfq2} out={output.merged} outu={output.unmerged} ihist={output.hist} ecct extend2=20 iterations=5 mix=f&quot;
+</code></pre>
+<h2 id="step-5">Step 5:</h2>
+<h3 id="map-reads-to-the-metaphlan-databaase-for-taxonomic-analysis-use-two-cores">Map reads to the metaphlan databaase for taxonomic analysis - use two cores</h3>
+<pre><code>rule metaphlan:
+    input:
+        fasta = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq&quot;
+    output: 
+        meta = &quot;/Users/tsewell/sb_int/metaphlan/{sample}.metagenome.txt&quot;,
+        bow = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq.bowtie2out.txt&quot;
+    shell:
+        &quot;metaphlan {input.fasta} --input_type fastq --nproc 2 &gt; {output.meta} --unknown_estimation --bowtie2db /Users/tsewell/metaphlan_db/&quot;
+</code></pre>
+<h2 id="step-6">Step 6:</h2>
+<h3 id="merge-abundances-into-a-single-tab-seperated-txt-file">Merge abundances into a single tab seperated txt file</h3>
+<pre><code>rule merge_metaphlan:
+    input:
+        expand(&quot;/Users/tsewell/sb_int/metaphlan/{sample}.metagenome.txt&quot;, sample=SAMPLES)
+    output:
+        &quot;/Users/tsewell/sb_int/metaphlan/merged/merged_abundance_table.txt&quot;
+    shell:
+        &quot;merge_metaphlan_tables.py {input} &gt; {output}&quot;
+</code></pre>
+<h2 id="full-snakemake-pipline">Full snakemake pipline</h2>
+<pre><code># config file
+SAMPLES = [&quot;Sample_A&quot;, &quot;Sample_B&quot;, &quot;Sample_C&quot;, &quot;Sample_D&quot;,
+           &quot;Sample_E&quot;, &quot;Sample_F&quot;, &quot;Sample_G&quot;, &quot;Sample_H&quot;, 
+           &quot;Sample_I&quot;, &quot;Sample_J&quot;, &quot;Sample_K&quot;, &quot;Sample_L&quot;]
+
+# Target file - RULE ALL HERE
+rule all:
+    input:
+        &quot;/Users/tsewell/sb_int/metaphlan/merged/merged_abundance_table.txt&quot;
+
+# Step 1 Cutadapt
+rule trim:
+    input:
+        r1 = &quot;/Users/tsewell/sb_int/reads/{sample}_L001_R1_001_subsample.fastq.gz&quot;,
+        r2 = &quot;/Users/tsewell/sb_int/reads/{sample}_L001_R2_001_subsample.fastq.gz&quot;
+    output:
+        trim1 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R1.fastq&quot;,
+        trim2 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R2.fastq&quot;
+    shell:
+        &quot;(cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o {output.trim1} -p {output.trim2} {input.r1} {input.r2})&quot;
+
+ #MAYBE BBDUK HERE
+
+# Step 2 Filter host/PhiX 
+rule hostfilter:
+      input:
+          fq1 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R1.fastq&quot;,
+          fq2 = &quot;/Users/tsewell/sb_int/trimmed/{sample}.trimmed.R2.fastq&quot;,
+          contam = &quot;/Users/tsewell/sb_int/reference/GCF_000819615.1_ViralProj14015_genomic.fna.gz&quot;
+      output:
+          clean1 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_1.fq&quot;,
+          clean2 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_2.fq&quot;
+      shell:
+          &quot;/Users/tsewell/bbmap/bbsplit.sh -Xmx16g in1={input.fq1} in2={input.fq2} ref={input.contam} outu1={output.clean1} outu2={output.clean2} int=t&quot;
+
+# Step 3 Merge paired reads
+rule merge:
+       input:
+          cleanfq1 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_1.fq&quot;,
+          cleanfq2 = &quot;/Users/tsewell/sb_int/cleaned/{sample}.clean_2.fq&quot;
+       output: 
+          merged = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq&quot;,
+          hist = &quot;/Users/tsewell/sb_int/merged/{sample}.ihist.txt&quot;,
+          unmerged = &quot;/Users/tsewell/sb_int/merged/{sample}.unmerged.fq&quot;
+       shell:
+           &quot;/Users/tsewell/bbmap/bbmerge-auto.sh in1={input.cleanfq1} in2={input.cleanfq2} out={output.merged} outu={output.unmerged} ihist={output.hist} ecct extend2=20 iterations=5 mix=f&quot;
+
+# Step 4 map reads to the metaphlan databaase for taxonomic analysis - use two cores
+rule metaphlan:
+       input:
+          fasta = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq&quot;
+       output: 
+          meta = &quot;/Users/tsewell/sb_int/metaphlan/{sample}.metagenome.txt&quot;,
+          bow = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq.bowtie2out.txt&quot;
+       shell:
+          &quot;metaphlan {input.fasta} --input_type fastq --nproc 2 &gt; {output.meta} --unknown_estimation --bowtie2db /Users/tsewell/metaphlan_db/&quot;
+
+# Step 5 - Merge abundances into a single tab seperated txt file
+rule merge_metaphlan:
+    input:
+        expand(&quot;/Users/tsewell/sb_int/metaphlan/{sample}.metagenome.txt&quot;, sample=SAMPLES)
+    output:
+        &quot;/Users/tsewell/sb_int/metaphlan/merged/merged_abundance_table.txt&quot;
+    shell:
+        &quot;merge_metaphlan_tables.py {input} &gt; {output}&quot;
+
+</code></pre>
+<h2 id="step-7">Step 7</h2>
+<h4 id="extract-species-level-abundances-from-merged-txt-file">Extract species level abundances from merged txt file</h4>
+<pre><code>grep -E &quot;s__|clade&quot; merged_abundance_table.txt | sed 's/^.*s__//g'\ | cut -f1,3-14 | sed -e 's/clade_name/body_site/g' &gt; merged_abundance_table_species.txt
+</code></pre>
+<h3 id="extract-species-level-abundances-including-unknown-portion">Extract species level abundances including UNKNOWN portion</h3>
+<pre><code>grep -E &quot;UNKNOWN|s__|clade&quot; merged_abundance_table.txt | sed 's/^.*s__//g'\ | cut -f1,3-14 | sed -e 's/clade_name/body_site/g' &gt; merged_abundance_table_species_unknown.txt
+</code></pre>
+<h3 id="extract-genus-level-abundances-including-unknown-portion">Extract genus level abundances including UNKNOWN portion</h3>
+<pre><code>grep -E &quot;UNKNOWN|g__|clade&quot; merged_abundance_table.txt | sed 's/^.*g__//g;/s__/d' | cut -f1,3-14 | sed -e 's/clade_name/body_site/g' &gt; merged_abundance_table_genus_unknown.txt
+</code></pre>
+<p>humann_renorm_table --input Sample_A.merged_genefamilies.tsv \
+    --output demo_genefamilies-cpm.tsv --units cpm --update-snames</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="Analysis/" class="btn btn-neutral float-right" title="Analysis">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="Analysis/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.3.1
+Build Date UTC : 2022-08-21 20:48:47.292165+00:00
+-->

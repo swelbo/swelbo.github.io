@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Analysis - Microbiome analysis</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Analysis";
+        var mkdocs_page_input_path = "Analysis.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../salientbio.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Analysis</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#table-of-taxonomic-abundances">Table of taxonomic abundances</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#table-here">TABLE HERE</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#figure-1">Figure 1</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#stacked-bar-plot-representing-percentage-abundance-at-the-species-level">Stacked bar plot representing percentage abundance at the species level</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#r-code">R code</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#figure-2">Figure 2</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#stacked-bar-plot-representing-percentage-abundance-at-the-genus-level-including-unknown-portion">Stacked bar plot representing percentage abundance at the genus level, including unknown portion</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#r-code_1">R code</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#figure-3">Figure 3</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pca-visulised-using-first-two-principal-components-kmeans-clustering-used-to-visulise-community-structure">PCA visulised using first two principal components. Kmeans clustering used to visulise community structure.</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#r-code_2">R code</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#figure-4">Figure 4</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cladogram-of-merged-microbiomes-with-circle-size-representing-abundance">Cladogram of merged microbiomes with circle size representing abundance</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#bash-commands">Bash commands</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../multiqc_report.html">Multiqc</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Microbiome analysis</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Analysis</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="results">Results</h1>
+<h2 id="table-of-taxonomic-abundances">Table of taxonomic abundances</h2>
+<h4 id="table-here">TABLE HERE</h4>
+<h2 id="figure-1">Figure 1</h2>
+<h3 id="stacked-bar-plot-representing-percentage-abundance-at-the-species-level">Stacked bar plot representing percentage abundance at the species level</h3>
+<p><img alt="fig1" src="../figs/species_stacked.png" /></p>
+<h4 id="r-code">R code</h4>
+<pre><code># Load packages
+library(ggplot2)
+library(dplyr)
+
+# input merged abundance data
+sb_df &lt;- read.csv(file = &quot;~/sb_int/metaphlan/merged/merged_abundance_table_species_long.txt&quot;)
+
+# gross conversion to percentage  (fix this with loop)
+sL &lt;- as.data.frame((sb_df$value[1:32]/sum(sb_df$value[1:32]))*100)
+colnames(sL) &lt;- c(&quot;Percentage&quot;)
+
+sK &lt;- as.data.frame((sb_df$value[33:64]/sum(sb_df$value[33:64]))*100)
+colnames(sK) &lt;- c(&quot;Percentage&quot;)
+
+sJ &lt;- as.data.frame((sb_df$value[65:96]/sum(sb_df$value[65:96]))*100)
+colnames(sJ) &lt;- c(&quot;Percentage&quot;)
+
+sI &lt;- as.data.frame((sb_df$value[97:128]/sum(sb_df$value[97:128]))*100)
+colnames(sI) &lt;- c(&quot;Percentage&quot;)
+
+sH &lt;- as.data.frame((sb_df$value[129:160]/sum(sb_df$value[129:160]))*100)
+colnames(sH) &lt;- c(&quot;Percentage&quot;)
+
+sG &lt;- as.data.frame((sb_df$value[161:192]/sum(sb_df$value[161:192]))*100)
+colnames(sG) &lt;- c(&quot;Percentage&quot;)
+
+sF &lt;- as.data.frame((sb_df$value[193:224]/sum(sb_df$value[193:224]))*100)
+colnames(sF) &lt;- c(&quot;Percentage&quot;)
+
+sE &lt;- as.data.frame((sb_df$value[225:256]/sum(sb_df$value[225:256]))*100)
+colnames(sE) &lt;- c(&quot;Percentage&quot;)
+
+sD &lt;- as.data.frame((sb_df$value[257:288]/sum(sb_df$value[257:288]))*100)
+colnames(sD) &lt;- c(&quot;Percentage&quot;)
+
+sC &lt;- as.data.frame((sb_df$value[289:320]/sum(sb_df$value[289:320]))*100)
+colnames(sC) &lt;- c(&quot;Percentage&quot;)
+
+sB &lt;- as.data.frame((sb_df$value[321:352]/sum(sb_df$value[321:352]))*100)
+colnames(sB) &lt;- c(&quot;Percentage&quot;)
+
+sA &lt;- as.data.frame((sb_df$value[353:384]/sum(sb_df$value[353:384]))*100)
+colnames(sA) &lt;- c(&quot;Percentage&quot;)
+
+# concat dataframes
+new &lt;- rbind(sL, sK, sJ, sI, sH, sG, sF, sE, sD, sC, sB, sA)
+
+# add to main dataframe
+sb_df_percentage &lt;- cbind(sb_df, new)
+
+# edit column names
+colnames(sb_df_percentage) &lt;- c(&quot;No&quot;, &quot;Bacterial_species&quot;, &quot;Sample&quot;, &quot;Abundance&quot;, &quot;Percentage&quot;)
+sb_df_percentage
+
+# Stacked
+hori &lt;-
+  ggplot(sb_df_percentage,
+         aes(fill = Bacterial_species,
+             y = Sample, x = Percentage)) + geom_bar(position =
+                                                        &quot;stack&quot;,
+                                                      stat = &quot;identity&quot;)
+hori
+
+# colours eeep! 
+c33 &lt;- c(
+  &quot;dodgerblue2&quot;, &quot;#E31A1C&quot;, # red
+  &quot;green4&quot;,
+  &quot;#6A3D9A&quot;, # purple
+  &quot;#FF7F00&quot;, # orange
+  &quot;black&quot;, &quot;gold1&quot;,
+  &quot;skyblue2&quot;, &quot;#FB9A99&quot;, # lt pink
+  &quot;palegreen2&quot;,
+  &quot;#CAB2D6&quot;, # lt purple
+  &quot;#FDBF6F&quot;, # lt orange
+  &quot;gray70&quot;, &quot;khaki2&quot;,
+  &quot;maroon&quot;, &quot;orchid1&quot;, &quot;deeppink1&quot;, &quot;blue1&quot;, &quot;steelblue4&quot;,
+  &quot;darkturquoise&quot;, &quot;green1&quot;, &quot;yellow4&quot;, &quot;yellow3&quot;,
+  &quot;darkorange4&quot;, &quot;brown&quot;, &quot;dodgerblue2&quot;, &quot;tomato3&quot;,
+  &quot;green4&quot;,
+  &quot;mediumorchid3&quot;,
+  &quot;lightsalmon&quot;, # orange
+  &quot;grey50&quot;,&quot;lightskyblue4&quot;)
+
+# new colours + classic theme
+hori.final &lt;- hori + scale_fill_manual(values=c33) + theme_classic()
+hori.final
+
+# plot final PCA plot and save to file 
+png(&quot;sb_int/mkdoc_sbint/docs/figs/species_stacked.png&quot;, width = 1100, height = 400)
+hori.final
+dev.off()
+</code></pre>
+<h2 id="figure-2">Figure 2</h2>
+<h3 id="stacked-bar-plot-representing-percentage-abundance-at-the-genus-level-including-unknown-portion">Stacked bar plot representing percentage abundance at the genus level, including unknown portion</h3>
+<p><img alt="fig2" src="../figs/genus_stacked.png" /></p>
+<h4 id="r-code_1">R code</h4>
+<pre><code>##### Genus stacked bar plot (with unknown portion) #####
+
+# input merged species level abundance data
+genus_df &lt;- read.csv(file = &quot;~/sb_int/metaphlan/merged/merged_abundance_table_genus_unknown_long.csv&quot;)
+
+# edit column names
+colnames(genus_df) &lt;- c(&quot;No&quot;, &quot;Genus&quot;, &quot;Sample&quot;, &quot;Percentage abundance&quot;)
+genus_df
+
+# remove .metagenome from sample name 
+genus_df &lt;- genus_df %&gt;% 
+  mutate(Sample = str_remove(Sample, &quot;.metagenome&quot;))
+
+# initial ggplot
+hori &lt;-
+  ggplot(genus_df,
+         aes(fill = Genus,
+             y = Sample, x = `Percentage abundance`)) + geom_bar(position =
+                                                       &quot;stack&quot;,
+                                                     stat = &quot;identity&quot;)
+hori
+
+# colours eeep! 
+c21 &lt;- c(&quot;#FF7F00&quot;, # orange
+  &quot;black&quot;, &quot;gold1&quot;,
+  &quot;skyblue2&quot;, &quot;#FB9A99&quot;, # lt pink
+  &quot;palegreen2&quot;,
+  &quot;#CAB2D6&quot;, # lt purple
+  &quot;#FDBF6F&quot;, # lt orange
+  &quot;gray70&quot;, &quot;khaki2&quot;,
+  &quot;maroon&quot;, &quot;orchid1&quot;, &quot;deeppink1&quot;, &quot;blue1&quot;, &quot;steelblue4&quot;,
+  &quot;darkturquoise&quot;, &quot;green1&quot;, &quot;yellow4&quot;, &quot;yellow3&quot;,&quot;#ebd8bd&quot;,
+  &quot;darkorange4&quot;)
+
+# new colours + classic theme
+hori.genus.final &lt;- hori + scale_fill_manual(values=c21) + theme_classic() + 
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14,face=&quot;bold&quot;), legend.text=element_text(size=16))
+
+hori.genus.final
+
+# plot final PCA plot and save to file 
+png(&quot;sb_int/mkdoc_sbint/docs/figs/genus_stacked.png&quot;, width = 1100, height = 600)
+hori.genus.final
+dev.off()
+
+</code></pre>
+<h2 id="figure-3">Figure 3</h2>
+<h3 id="pca-visulised-using-first-two-principal-components-kmeans-clustering-used-to-visulise-community-structure">PCA visulised using first two principal components. Kmeans clustering used to visulise community structure.</h3>
+<p><img alt="fig3" src="../figs/PCA_abundance_kmeans.png" /></p>
+<p>Perhaps the samples are 4 replicates of three gut microbiome samples? </p>
+<h4 id="r-code_2">R code</h4>
+<pre><code>## load libraries 
+library(tidyverse)
+library(vegan)
+
+# input merged abundance data
+sb_df &lt;- read.csv(file = &quot;~/sb_int/metaphlan/merged/merged_abundance_table_species.txt&quot;, sep = &quot;\t&quot;)
+sb_df
+
+# convert to a matrix
+sb_mat = sb_df %&gt;% 
+  column_to_rownames(&quot;body_site&quot;) %&gt;% 
+  as.matrix() %&gt;%
+  t()
+
+## PCA Plot
+# Generate a distance matrix based on abundance 
+dist_mat = vegdist(sb_mat, method = &quot;manhattan&quot;)
+
+# Multidimensional scaling of the matrix (PCA)
+cmd_res = cmdscale(dist_mat, 
+                   k = (nrow(sb_mat) - 1),
+                   eig = TRUE)
+
+# check data structure
+str(cmd_res)
+
+# Select first two principal coordinates
+pca_df = tibble(PC1 = cmd_res$points[,1], 
+                 PC2 = cmd_res$points[,2])
+
+# k means clustering to predicted community structure (cohorts from here on)
+set.seed(100)
+x &lt;- kmeans(dist_mat, centers = 3)
+kmeans &lt;- as.data.frame(x$cluster)
+kmeans$`x$cluster`[kmeans$`x$cluster` == &quot;1&quot;] &lt;- &quot;A&quot;
+kmeans$`x$cluster`[kmeans$`x$cluster` == &quot;2&quot;] &lt;- &quot;B&quot;
+kmeans$`x$cluster`[kmeans$`x$cluster` == &quot;3&quot;] &lt;- &quot;C&quot;
+colnames(kmeans) &lt;- &quot;Patient (predicition)&quot;
+kmeans
+
+# Add the predicted cohort as meta data to PCOA dataframe
+pca_meta &lt;- bind_cols(pca_df, kmeans)
+pca_meta
+
+# ggplot coloured  by cohort clustering
+pca_plot &lt;- ggplot(pca_meta, aes(x = PC1, y = PC2, colour = `Patient (predicition)`)) + 
+  geom_point(alpha = 0.75, size = 5) + scale_size(guide = &quot;none&quot;) + scale_alpha(guide = &quot;none&quot;)
+
+# plot final PCA plot and save to file 
+png(&quot;sb_int/mkdoc_sbint/docs/figs/PCA_abundance_kmeans.png&quot;, width = 450, height = 300)
+pca_plot
+dev.off()
+</code></pre>
+<h2 id="figure-4">Figure 4</h2>
+<h3 id="cladogram-of-merged-microbiomes-with-circle-size-representing-abundance">Cladogram of merged microbiomes with circle size representing abundance</h3>
+<p><img alt="fig4" src="../figs/merged_abundance.png" /></p>
+<h4 id="bash-commands">Bash commands</h4>
+<pre><code># Create a seperate  conda package due to python2.7 dependencies
+conda create -n graphlan python=2.7
+conda activate graphlan
+conda install -c biobakery graphlan 
+conda install export2graphlan biopython
+
+# reformat abundance table
+tail -n +2 merged_abundance_table.txt | cut -f1,3- &gt; merged_abundance_table_reformatted.txt
+
+# script that generates the two input files for GraPhlAn (the tree and annotation files) 
+# export2graphlan.py -h for flag definitions 
+export2graphlan.py --skip_rows 1 -i merged_abundance_table_reformatted.txt --tree merged_abundance.tree.txt --annotation merged_abundance.annot.txt --most_abundant 100 --abundance_threshold 1 --least_biomarkers 10 --annotations 5,6 --external_annotations 7 --min_clade_size 1
+
+# generate .xml file 
+graphlan_annotate.py --annot merged_abundance.annot.txt merged_abundance.tree.txt merged_abundance.xml
+
+# run phylo
+graphlan.py --dpi 300 merged_abundance.xml merged_abundance.png --external_legends
+
+# copy to mkdocs figs folder 
+cp merged_abundance.png ~/sb_int/mkdoc_sbint/docs/figs/
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../multiqc_report.html" class="btn btn-neutral float-right" title="Multiqc">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../multiqc_report.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
