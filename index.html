@@ -12,7 +12,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Home";
+        var mkdocs_page_name = "Analysis";
         var mkdocs_page_input_path = "index.md";
         var mkdocs_page_url = null;
       </script>
@@ -42,7 +42,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Analysis</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
     </li>
@@ -55,6 +55,10 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#snakemake-pipeline">Snakemake pipeline</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#workflow">Workflow</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-1">Step 1:</a>
         <ul>
@@ -82,7 +86,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-5">Step 5:</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#map-reads-to-the-metaphlan-databaase-for-taxonomic-analysis-use-two-cores">Map reads to the metaphlan databaase for taxonomic analysis - use two cores</a>
+    <li class="toctree-l3"><a class="reference internal" href="#map-reads-to-the-metaphlan-database-for-taxonomic-analysis-use-two-cores">Map reads to the metaphlan database for taxonomic analysis - use two cores</a>
     </li>
         </ul>
     </li>
@@ -104,11 +108,27 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-8">Step 8</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#functional-analysis">Functional analysis</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#build-this-into-the-snakemake-pipeline">Build this into the snakemake pipeline</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#normalise-rpk-values-by-copies-per-million-cpm">Normalise RPK values by copies per million (CPM)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#regroup-uniref-calls-into-rnx-values-metacyc">Regroup UNIREF calls into RNX values (MetaCyc)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#name-the-rxn-features-so-they-arae-human-readable">Name the RXN features so they arae human readable</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="Analysis/">Analysis</a>
+                <li class="toctree-l1"><a class="reference internal" href="Analysis/">Results</a>
                 </li>
               </ul>
               <ul>
@@ -129,7 +149,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Home</li>
+      <li>Analysis</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -163,6 +183,8 @@ multiqc fastqc/ -o multiqc  # generate snazzy report
 cp multiqc/multiqc_report.html
 </code></pre>
 <h2 id="snakemake-pipeline">Snakemake pipeline</h2>
+<h3 id="workflow">Workflow</h3>
+<p><img alt="fig0" src="figs/dag.svg" /></p>
 <h2 id="step-1">Step 1:</h2>
 <h3 id="addition-of-the-samples-list-and-target-file">Addition of the samples list and target file.</h3>
 <pre><code>SAMPLES = [&quot;Sample_A&quot;, &quot;Sample_B&quot;, &quot;Sample_C&quot;, &quot;Sample_D&quot;,
@@ -213,7 +235,7 @@ rule all:
         &quot;/Users/tsewell/bbmap/bbmerge-auto.sh in1={input.cleanfq1} in2={input.cleanfq2} out={output.merged} outu={output.unmerged} ihist={output.hist} ecct extend2=20 iterations=5 mix=f&quot;
 </code></pre>
 <h2 id="step-5">Step 5:</h2>
-<h3 id="map-reads-to-the-metaphlan-databaase-for-taxonomic-analysis-use-two-cores">Map reads to the metaphlan databaase for taxonomic analysis - use two cores</h3>
+<h3 id="map-reads-to-the-metaphlan-database-for-taxonomic-analysis-use-two-cores">Map reads to the metaphlan database for taxonomic analysis - use two cores</h3>
 <pre><code>rule metaphlan:
     input:
         fasta = &quot;/Users/tsewell/sb_int/merged/{sample}.merged.fq&quot;
@@ -311,13 +333,60 @@ rule merge_metaphlan:
 <h3 id="extract-genus-level-abundances-including-unknown-portion">Extract genus level abundances including UNKNOWN portion</h3>
 <pre><code>grep -E &quot;UNKNOWN|g__|clade&quot; merged_abundance_table.txt | sed 's/^.*g__//g;/s__/d' | cut -f1,3-14 | sed -e 's/clade_name/body_site/g' &gt; merged_abundance_table_genus_unknown.txt
 </code></pre>
-<p>humann_renorm_table --input Sample_A.merged_genefamilies.tsv \
-    --output demo_genefamilies-cpm.tsv --units cpm --update-snames</p>
+<h2 id="step-8">Step 8</h2>
+<h3 id="functional-analysis">Functional analysis</h3>
+<h4 id="build-this-into-the-snakemake-pipeline"><strong><em>Build this into the snakemake pipeline</em></strong></h4>
+<pre><code>for i in User/tsewell/sb_int/merged/Sample_*.merged.fq; do
+    humann --input $i --output ${i%.merged.fq} --threads 4 --metaphlan-options &quot;--unknown_estimation --bowtie2db /Users/tsewell/metaphlan_db/;
+    done
+
+</code></pre>
+<h3 id="normalise-rpk-values-by-copies-per-million-cpm">Normalise RPK values by copies per million (CPM)</h3>
+<pre><code>for i in Sample_*.merged_genefamilies.tsv; do
+    humann_renorm_table --input $i --output ${i%.tsv}-cpm.tsv --units cpm --update-snames;
+    done
+</code></pre>
+<h3 id="regroup-uniref-calls-into-rnx-values-metacyc">Regroup UNIREF calls into RNX values (MetaCyc)</h3>
+<pre><code>for i in Sample_*.merged_genefamilies-cpm.tsv; do
+    humann_regroup_table --input $i --output ${i%.tsv}.rxn-cpm.tsv --groups uniref90_rxn;
+    done
+</code></pre>
+<h3 id="name-the-rxn-features-so-they-arae-human-readable">Name the RXN features so they arae human readable</h3>
+<pre><code>for i in Sample_*.merged_genefamilies-cpm.rxn-cpm.tsv; do
+    humann_rename_table --input $i --output ${i%.tsv}-named.tsv --names metacyc-rxn;
+    done
+</code></pre>
+<!---
+### Merge into a single file 
+
+<pre><code>humann_join_tables -i merged/ -o merged_genefamilies.tsv --file_name genefamilies
+</code></pre>
+
+
+<pre><code>humann_renorm_table -i merged_genefamilies.tsv -o merged_genefamilies-cpm.tsv --units cpm
+</code></pre>
+
+
+<pre><code>humann_regroup_table --input merged_genefamilies-cpm.tsv --output merged_rxn-cpm.tsv --groups uniref90_rxn
+
+</code></pre>
+
+
+<pre><code>humann_rename_table --input merged_rxn-cpm.tsv --output merged_rxn-cpm-named.tsv --names metacyc-rxn
+</code></pre>
+
+
+### Remove UNMAPPED and UNKNOWN
+
+<pre><code>sed '/UNGROUPED/d' merged_rxn-cpm-named.tsv | sed '/UNMAPPED/d' &gt; merged_rxn-cpm-named-rmUNKNOWN.tsv
+</code></pre>
+
+-->
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="Analysis/" class="btn btn-neutral float-right" title="Analysis">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="Analysis/" class="btn btn-neutral float-right" title="Results">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -360,5 +429,5 @@ rule merge_metaphlan:
 
 <!--
 MkDocs version : 1.3.1
-Build Date UTC : 2022-08-21 21:14:53.210627+00:00
+Build Date UTC : 2022-08-22 22:17:55.101352+00:00
 -->

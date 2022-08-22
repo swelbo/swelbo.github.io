@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Analysis - Microbiome analysis</title>
+    <title>Results - Microbiome analysis</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Analysis";
+        var mkdocs_page_name = "Results";
         var mkdocs_page_input_path = "Analysis.md";
         var mkdocs_page_url = null;
       </script>
@@ -42,25 +42,19 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                <li class="toctree-l1"><a class="reference internal" href="..">Analysis</a>
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Analysis</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Results</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#table-of-taxonomic-abundances">Table of taxonomic abundances</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#table-here">TABLE HERE</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#figure-1">Figure 1</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#stacked-bar-plot-representing-percentage-abundance-at-the-species-level">Stacked bar plot representing percentage abundance at the species level</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#r-code">R code</a>
     </li>
-        </ul>
+    <li class="toctree-l3"><a class="reference internal" href="#r-code">R Code</a>
     </li>
         </ul>
     </li>
@@ -94,6 +88,24 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#table-2">Table 2</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#normalised-gene-family-abundance-for-predicted-patient-one-sample-a-b-g-h">Normalised gene family abundance for predicted patient one (Sample A, B, G, H)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#table-3">Table 3</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#normalised-gene-family-abundance-for-predicted-patient-one-sample-c-d-i-j">Normalised gene family abundance for predicted patient one (Sample C, D, I, J)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#table-4">Table 4</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#normalised-gene-family-abundance-for-predicted-patient-one-sample-e-f-k-l">Normalised gene family abundance for predicted patient one (Sample E, F, K, L)</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -115,7 +127,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Analysis</li>
+      <li>Results</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -126,11 +138,15 @@
               
                 <h1 id="results">Results</h1>
 <h2 id="table-of-taxonomic-abundances">Table of taxonomic abundances</h2>
-<h4 id="table-here">TABLE HERE</h4>
+<p><img alt="tab1" src="../figs/genus_abun.png" /></p>
 <h2 id="figure-1">Figure 1</h2>
 <h3 id="stacked-bar-plot-representing-percentage-abundance-at-the-species-level">Stacked bar plot representing percentage abundance at the species level</h3>
 <p><img alt="fig1" src="../figs/species_stacked.png" /></p>
-<h4 id="r-code">R code</h4>
+<h3 id="r-code">R Code</h3>
+<details>
+  <summary>please click here for code</summary>
+
+
 <pre><code># Load packages
 library(ggplot2)
 library(dplyr)
@@ -223,10 +239,18 @@ png(&quot;sb_int/mkdoc_sbint/docs/figs/species_stacked.png&quot;, width = 1100, 
 hori.final
 dev.off()
 </code></pre>
+
+
+</details>
+<p>&nbsp;</p>
 <h2 id="figure-2">Figure 2</h2>
 <h3 id="stacked-bar-plot-representing-percentage-abundance-at-the-genus-level-including-unknown-portion">Stacked bar plot representing percentage abundance at the genus level, including unknown portion</h3>
 <p><img alt="fig2" src="../figs/genus_stacked.png" /></p>
 <h4 id="r-code_1">R code</h4>
+<details>
+  <summary>please click here for code</summary>
+
+
 <pre><code>##### Genus stacked bar plot (with unknown portion) #####
 
 # input merged species level abundance data
@@ -274,11 +298,18 @@ hori.genus.final
 dev.off()
 
 </code></pre>
+
+</details>
+<p>&nbsp;</p>
 <h2 id="figure-3">Figure 3</h2>
 <h3 id="pca-visulised-using-first-two-principal-components-kmeans-clustering-used-to-visulise-community-structure">PCA visulised using first two principal components. Kmeans clustering used to visulise community structure.</h3>
 <p><img alt="fig3" src="../figs/PCA_abundance_kmeans.png" /></p>
 <p>Perhaps the samples are 4 replicates of three gut microbiome samples? </p>
 <h4 id="r-code_2">R code</h4>
+<details>
+  <summary>please click here for code</summary>
+
+
 <pre><code>## load libraries 
 library(tidyverse)
 library(vegan)
@@ -332,10 +363,17 @@ png(&quot;sb_int/mkdoc_sbint/docs/figs/PCA_abundance_kmeans.png&quot;, width = 4
 pca_plot
 dev.off()
 </code></pre>
+
+</details>
+<p>&nbsp;</p>
 <h2 id="figure-4">Figure 4</h2>
 <h3 id="cladogram-of-merged-microbiomes-with-circle-size-representing-abundance">Cladogram of merged microbiomes with circle size representing abundance</h3>
 <p><img alt="fig4" src="../figs/merged_abundance.png" /></p>
 <h4 id="bash-commands">Bash commands</h4>
+<details>
+  <summary>please click here for code</summary>
+
+
 <pre><code># Create a seperate  conda package due to python2.7 dependencies
 conda create -n graphlan python=2.7
 conda activate graphlan
@@ -358,11 +396,23 @@ graphlan.py --dpi 300 merged_abundance.xml merged_abundance.png --external_legen
 # copy to mkdocs figs folder 
 cp merged_abundance.png ~/sb_int/mkdoc_sbint/docs/figs/
 </code></pre>
+
+</details>
+<p>&nbsp;</p>
+<h2 id="table-2">Table 2</h2>
+<h3 id="normalised-gene-family-abundance-for-predicted-patient-one-sample-a-b-g-h">Normalised gene family abundance for predicted patient one (Sample A, B, G, H)</h3>
+<p><img alt="tab2" src="../figs/P1_RPK_genefam.png" /></p>
+<h2 id="table-3">Table 3</h2>
+<h3 id="normalised-gene-family-abundance-for-predicted-patient-one-sample-c-d-i-j">Normalised gene family abundance for predicted patient one (Sample C, D, I, J)</h3>
+<p><img alt="tab3" src="../figs/P2_RPK_genefam.png" /></p>
+<h2 id="table-4">Table 4</h2>
+<h3 id="normalised-gene-family-abundance-for-predicted-patient-one-sample-e-f-k-l">Normalised gene family abundance for predicted patient one (Sample E, F, K, L)</h3>
+<p><img alt="tab4" src="../figs/P3_RPK_genefam.png" /></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral float-left" title="Analysis"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../multiqc_report.html" class="btn btn-neutral float-right" title="Multiqc">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
